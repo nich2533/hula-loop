@@ -14,8 +14,8 @@ Both are starting points — copy and edit them for your own workflows.
 ## Install
 
 ```bash
-git clone https://github.com/<your-user>/hula_loop.git
-cd hula_loop
+git clone https://github.com/nich2533/hula-loop.git
+cd hula-loop
 ./install.sh /path/to/your/project
 ```
 
