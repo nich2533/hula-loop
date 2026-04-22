@@ -28,16 +28,22 @@ cp -Rn "${SCRIPT_DIR}/scripts/." "${TARGET}/scripts/"
 
 chmod +x "${TARGET}/scripts/loop.sh"
 
-# Ensure the target's .gitignore excludes the runtime worklog directory
+# Ensure the target's .gitignore excludes runtime output and Claude Code local state
 GITIGNORE="${TARGET}/.gitignore"
-if [ ! -f "$GITIGNORE" ] || ! grep -qxF 'documentation/working_log/' "$GITIGNORE"; then
-  {
-    echo ""
-    echo "# hula_loop runtime output"
-    echo "documentation/working_log/"
-  } >> "$GITIGNORE"
-  echo "Added documentation/working_log/ to ${GITIGNORE}"
-fi
+HEADER_ADDED=0
+for entry in "documentation/working_log/" ".claude/settings.local.json"; do
+  if [ ! -f "$GITIGNORE" ] || ! grep -qxF "$entry" "$GITIGNORE"; then
+    if [ "$HEADER_ADDED" -eq 0 ]; then
+      {
+        echo ""
+        echo "# hula_loop runtime output and Claude Code local state"
+      } >> "$GITIGNORE"
+      HEADER_ADDED=1
+    fi
+    echo "$entry" >> "$GITIGNORE"
+    echo "Added $entry to ${GITIGNORE}"
+  fi
+done
 
 echo ""
 echo "Installed. Next steps:"
