@@ -1,0 +1,9 @@
+# Claude Code local session state (auto-generated)
+.claude/settings.local.json
+
+# Working logs are runtime output — recreated each run
+documentation/working_log/
+
+# OS junk
+.DS_Store
+Thumbs.db
